@@ -4,10 +4,11 @@ from fastapi.responses import HTMLResponse
 from typing import Optional
 import uvicorn, os, uuid, boto3
 from sqlalchemy import create_engine, text
-
+# from dotenv import load_dotenv
+# load_dotenv()
 app = FastAPI()
 templates = Jinja2Templates(directory="templates/")
-pwd_value = os.environ.get('MSSQLS_PWD',"Ftu5675FDG54hjhiuu$")
+pwd_value = os.environ.get('MSSQLS_PWD')
 pwd_str =f"Pwd={pwd_value};"
 global conn
 conn = "DRIVER={ODBC Driver 17 for SQL Server};Server=35.172.243.170;Database=luxurymarket_p4;Uid=luxurysitescraper;" + pwd_str

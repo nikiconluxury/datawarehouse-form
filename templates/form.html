@@ -113,10 +113,23 @@ table.form-cells-new > tbody > tr > th {color: #707070; text-align: left}
 			</tr>
     		<tr>
     			<td>&nbsp;</td>
-        		<td><input type="submit" class="form-btn" value="Submit"> &nbsp; <input type="reset" class="form-btn" value="Reset"></td>
+        		<td><input type="submit" class="form-btn" value="Submit" id="save"> &nbsp; <input type="reset" class="form-btn" value="Reset"></td>
 			</tr>
 		</tbody>
 	</table>
 	</form>
 </body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $("#save").on('click', function(event) {
+        event.preventDefault(); // Prevent the form from submitting immediately
+        var $btnElm = $(this);
+        $btnElm.val('Loading...');
+
+        // Use setTimeout to give time for the text to change before submission
+        setTimeout(function() {
+            $("#uploadForm").submit();
+        }, 100); // Adjust the delay as needed
+    });
+</script>
 </html>
