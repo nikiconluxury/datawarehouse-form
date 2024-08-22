@@ -4,8 +4,12 @@ from fastapi.responses import HTMLResponse
 from typing import Optional
 import uvicorn, os, uuid, boto3
 from sqlalchemy import create_engine, text
-# from dotenv import load_dotenv
-# load_dotenv()
+from typing import IO
+import filetype
+
+
+from dotenv import load_dotenv
+load_dotenv()
 app = FastAPI()
 templates = Jinja2Templates(directory="templates/")
 pwd_value = os.environ.get('MSSQLS_PWD')
@@ -93,10 +97,13 @@ async def form_post(
     notes: Optional[str] = Form(None),
 ):
     # Check if fileUpload is empty
-    if fileUpload is None or fileUpload.filename == "":
-        # Return an error message in the form if no file is uploaded
+    if fileUpload is None or fileUpload.filename == "": 
         return templates.TemplateResponse("form.html", context={"request": request, "message": {"text": "Error: A file is required.", "type": "error"}})
-    
+    print(fileUpload.content_type)
+    if str(fileUpload.content_type) != 'application/vnd.ms-excel' and str(fileUpload.content_type) != 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
+        return templates.TemplateResponse("form.html", context={"request": request, "message": {"text": "Error: Excel file type is required", "type": "error"}})
+
+
     # Specify the directory where you want to save the file temporarily
     save_directory = "uploads"
     
