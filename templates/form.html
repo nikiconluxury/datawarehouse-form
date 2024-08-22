@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sample Form</title>
+    <script>
+        function clearForm() {
+            document.getElementById("uploadForm").reset();
+        }
+    </script>
+    <style>
+body {margin: 0px; padding: 0px; font-family: Arial; font-size: 11px; color: #000; background: #fff}
+td, input, select, textarea, button, p {font-family: Arial; font-size: 11px; color: #000}
+input[disabled],
+button[disabled] {color: grey}
+p {font-size: 13px}
+
+
+.form-cells th {font-weight: normal}
+.form-cells th,
+.form-cells td {padding: 5px 10px 5px 0; font-size: 12px}
+.form-cells table th,
+.form-cells table td {padding: 0 10px 0 0}
+.form-cells label.required:before {content: '*'; padding-right: 2px; font-size: 18px; color: red; vertical-align: middle; line-height: 1px}
+
+.form-cells > tbody > tr > th:first-child,
+.form-cells > tbody > tr > td:first-child {text-align: right; width: 120px}
+.grid-head .form-cells > tbody > tr > td,
+.search-form .form-cells > tbody > tr > td {text-align: left; width: auto}
+
+table.form-cells-new > tbody > tr > td:first-child {text-align: right; width: 120px}
+table.form-cells > tbody > tr > th,
+table.form-cells-new > tbody > tr > th {color: #707070; text-align: left}
+
+.selector {font-size: 12px; padding: 3px}
+.selector-nowidth {margin: 0; font-size: 12px; padding: 1px}
+
+.form-cells > tbody > tr > th:last-child,
+.form-cells > tbody > tr > td:last-child {padding-right: 0}
+.form-btn {margin-right: 16px}
+.form-btn,
+.inline-btn {
+	font-size: 12px;
+	border-radius: 3px;
+	font-weight: bold;
+	padding: 4px 20px;
+	border: 1px solid #abadb3;
+	background: linear-gradient(0deg, rgba(227,227,227,1) 0%, rgba(255,255,255,1) 100%)
+}
+.form-btn:not(:disabled):hover,
+.inline-btn:not(:disabled):hover {
+	background: linear-gradient(0deg, rgba(227,227,227,1) 35%, rgba(255,255,255,1) 100%)
+}
+.form-btn:disabled,
+.inline-btn:disabled,
+.form-btn:not(:disabled):active,
+.inline-btn:not(:disabled):active {background: #e5e5e5}
+.form-btn:not(:disabled):focus,
+.inline-btn:not(:disabled):focus {box-shadow: 0 0 0 0.1rem rgba(13,110,253,.25)}
+
+    </style>
+</head>
+<body>
+
+    <form id="uploadForm" method="post" enctype="multipart/form-data" action="/form">
+    <table cellpadding="0" cellspacing="0" border="0" class="form-cells form-cells-new">
+    	<tbody>
+    		<tr>
+        		<!-- File Upload -->
+        		<td>&nbsp;</td>
+        		<td>
+					{% if message %}
+						<p style="font-size: 15px; color: {% if message.type == 'error' %}red{% else %}green{% endif %};">
+							{{ message.text }}
+						</p>
+						{% if message.type == 'success' %}
+							<script>
+								// Clear the form after successful submission
+								clearForm();
+							</script>
+						{% endif %}
+					{% endif %}
+				
+        		</td>
+			</tr>
+    		<tr>
+        		<!-- File Upload -->
+        		<td><label for="fileUpload">Upload File:</label></td>
+        		<td><input type="file" name="fileUpload" id="fileUpload" style="font-size: 15px; cursor: pointer;"></td>
+			</tr>
+    		<tr>
+        		<!-- Currency Selection -->
+        		<td><label for="currency">Currency:</label></td>
+        		<td><select name="currency" id="currency" class="selector" style="width: 150px">
+						<option value="1">USD</option>
+						<option value="2">EUR</option>
+					</select>
+				</td>
+			</tr>
+    		<tr>
+				<!-- Yes/No Selection -->
+				<td><label for="option">Color Part Of Model:</label></td>
+				<td><select name="option" id="option" class="selector" style="width: 150px">
+						<option value="1">Yes</option>
+						<option value="0">No</option>
+					</select>
+				</td>
+			</tr>
+    		<tr>
+        		<!-- Notes Text Box -->
+        		<td><label for="notes">Notes:</label></td>
+       			<td><textarea name="notes" id="notes" rows="4" cols="50"></textarea></td>
+			</tr>
+    		<tr>
+    			<td>&nbsp;</td>
+        		<td><input type="submit" class="form-btn" value="Submit"> &nbsp; <input type="reset" class="form-btn" value="Reset"></td>
+			</tr>
+		</tbody>
+	</table>
+	</form>
+</body>
+</html>
