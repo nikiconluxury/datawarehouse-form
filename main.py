@@ -4,12 +4,10 @@ from fastapi.responses import HTMLResponse
 from typing import Optional
 import uvicorn, os, uuid, boto3
 from sqlalchemy import create_engine, text
-from typing import IO
-import filetype
 
 
-from dotenv import load_dotenv
-load_dotenv()
+# from dotenv import load_dotenv
+# load_dotenv()
 app = FastAPI()
 templates = Jinja2Templates(directory="templates/")
 pwd_value = os.environ.get('MSSQLS_PWD')
